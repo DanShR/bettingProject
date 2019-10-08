@@ -1,0 +1,5 @@
+.idea/*
+*.war
+*.jar
+target/*
+node_modules/*
