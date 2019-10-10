@@ -13,7 +13,6 @@ public class Team {
 
     private String name;
 
-    @JsonIgnore
     private String image_id;
 
     @JsonIgnore

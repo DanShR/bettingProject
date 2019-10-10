@@ -9,7 +9,11 @@
                     </span>
                     <span class="row">
                         <span class="left">{{event}}</span>
-                        <span class="right">{{bet.game.teamHome.name}} - {{bet.game.teamAway.name}}</span>
+                        <span class="right valign-wrapper">
+                            <img :src="'/img/' + bet.game.teamHome.image_id  + '.png'"/>&nbsp;
+                            {{bet.game.teamHome.name}} - {{bet.game.teamAway.name}}&nbsp;
+                            <img :src="'/img/' + bet.game.teamAway.image_id  + '.png'"/>
+                        </span>
                     </span>
 
                     <span class="row">

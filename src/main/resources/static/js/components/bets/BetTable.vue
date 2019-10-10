@@ -1,16 +1,18 @@
 <template>
     <div>
-        <preloader :loading="loading"/>
-        <div v-if="!loading">
-            <pagination
-                    :current="currentPage"
-                    :totalPages="totalPages"
-                    @page-changed="fetchBets" />
-            <bet-row  v-for="bet in betList" :bet="bet" :key="bet.id"></bet-row>
-            <pagination
+        <div v-if="profile">
+             <preloader :loading="loading"/>
+            <div v-if="!loading">
+                <pagination
                         :current="currentPage"
                         :totalPages="totalPages"
                         @page-changed="fetchBets" />
+                <bet-row  v-for="bet in betList" :bet="bet" :key="bet.id"></bet-row>
+                <pagination
+                        :current="currentPage"
+                        :totalPages="totalPages"
+                        @page-changed="fetchBets" />
+            </div>
         </div>
     </div>
 </template>
@@ -25,6 +27,7 @@
             Pagination,
             Preloader
         },
+        props: ['profile'],
         data() {
             return {
                 betList : [],
@@ -35,7 +38,8 @@
             }
         },
         created() {
-            this.fetchBets(this.currentPage)
+            if (this.profile)
+                this.fetchBets(this.currentPage)
         },
         methods: {
             fetchBets: function (page) {

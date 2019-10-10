@@ -3,9 +3,10 @@ package com.sport.betting.domain.dto;
 import com.sport.betting.domain.Bookmaker;
 import com.sport.betting.domain.Game;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class BetDto {
+public class BetDto implements Serializable {
         private int id;
         private Game game;
         private Bookmaker bookmaker;
