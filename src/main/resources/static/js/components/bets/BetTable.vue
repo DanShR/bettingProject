@@ -3,10 +3,6 @@
         <div v-if="profile">
              <preloader :loading="loading"/>
             <div v-if="!loading">
-                <pagination
-                        :current="currentPage"
-                        :totalPages="totalPages"
-                        @page-changed="fetchBets" />
                 <bet-row  v-for="bet in betList" :bet="bet" :key="bet.id"></bet-row>
                 <pagination
                         :current="currentPage"
@@ -21,13 +17,14 @@
     import BetRow from 'components/bets/BetRow.vue'
     import Pagination from 'components/bets/Pagination.vue'
     import Preloader from 'components/bets/Preloader.vue'
+    import { mapState } from 'vuex';
+    git checkout
     export default {
         components: {
             BetRow,
             Pagination,
             Preloader
         },
-        props: ['profile'],
         data() {
             return {
                 betList : [],
@@ -37,6 +34,8 @@
                 loading: false
             }
         },
+        computed:
+            mapState(['profile',]),
         created() {
             if (this.profile)
                 this.fetchBets(this.currentPage)

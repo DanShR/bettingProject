@@ -1,7 +1,7 @@
 <template>
     <div>
-        <navbar :profile="profile"/>
-        <bet-table :profile="profile"/>
+        <navbar />
+        <bet-table/>
     </div>
 </template>
 
@@ -12,11 +12,6 @@
         components :{
             BetTable,
             Navbar
-        },
-        data() {
-            return {
-                profile: frontendData.profile111111
-            }
         }
     }
 </script>
