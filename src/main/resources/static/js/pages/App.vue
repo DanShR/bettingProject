@@ -15,7 +15,7 @@
         },
         data() {
             return {
-                profile: frontendData.profile
+                profile: frontendData.profile111111
             }
         }
     }
