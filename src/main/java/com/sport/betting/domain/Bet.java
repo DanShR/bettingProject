@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "bet")
@@ -41,18 +43,14 @@ public class Bet {
     @JoinColumn(name = "event_odd_id")
     private EventOdd eventOdd;
 
-    @Transient
-    private int timeToGameStart;
+    @OneToMany(mappedBy = "bet", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<UserBet> userBetList;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created")
+    private Date created;
 
     public Bet() {
-    }
-
-    public int getTimeToGameStart() {
-        return (int) (game.getDate().getTime() - addTime.getTime())/(60 *1000);
-    }
-
-    public void setTimeToGameStart(int timeToGameStart) {
-        this.timeToGameStart = timeToGameStart;
     }
 
     public int getId() {
@@ -125,5 +123,21 @@ public class Bet {
 
     public void setEventOdd(EventOdd eventOdd) {
         this.eventOdd = eventOdd;
+    }
+
+    public List<UserBet> getUserBetList() {
+        return userBetList;
+    }
+
+    public void setUserBetList(List<UserBet> userBetList) {
+        this.userBetList = userBetList;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 }

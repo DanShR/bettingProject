@@ -18,7 +18,7 @@
     import Pagination from 'components/bets/Pagination.vue'
     import Preloader from 'components/bets/Preloader.vue'
     import { mapState } from 'vuex';
-    git checkout
+
     export default {
         components: {
             BetRow,

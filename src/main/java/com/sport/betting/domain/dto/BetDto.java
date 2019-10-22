@@ -2,6 +2,7 @@ package com.sport.betting.domain.dto;
 
 import com.sport.betting.domain.Bookmaker;
 import com.sport.betting.domain.Game;
+import com.sport.betting.domain.UserBet;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,10 +16,9 @@ public class BetDto implements Serializable {
         private Date addTime;
         private float ratio;
         private int result;
-        private int timeToGameStart;
+        private UserBet userBet;
 
-    public BetDto(int id, Game game, Bookmaker bookmaker, int event, float odd, Date addTime, float ratio, int result) {
-        //em.createQuery("select new com.sport.betting.domain.dto.BetDto(b.id, b.game, b.bookmaker, b.event, b.odd, max(b.addTime), b.ratio, b.result) from Bet b left join b.game g where b.odd<=2.2 and b.ratio between 1.05 and 1.4 group by g.id, b.bookmaker").getResultList()
+    public BetDto(int id, Game game, Bookmaker bookmaker, int event, float odd, Date addTime, float ratio, int result, UserBet userBet) {
         this.id = id;
         this.game = game;
         this.bookmaker = bookmaker;
@@ -27,7 +27,7 @@ public class BetDto implements Serializable {
         this.addTime = addTime;
         this.ratio = ratio;
         this.result = result;
-        this.timeToGameStart = (int) (game.getDate().getTime() - addTime.getTime())/(60 *1000);
+        this.userBet = userBet;
     }
 
     public int getId() {
@@ -62,7 +62,7 @@ public class BetDto implements Serializable {
         return result;
     }
 
-    public int getTimeToGameStart() {
-        return timeToGameStart;
+    public UserBet getUserBet() {
+        return userBet;
     }
 }

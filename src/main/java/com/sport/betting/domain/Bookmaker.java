@@ -1,9 +1,12 @@
 package com.sport.betting.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "bookmaker")
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Bookmaker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,7 +1,10 @@
 package com.sport.betting.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity()
 @Table(name = "usr")
@@ -14,6 +17,10 @@ public class User {
     private String gender;
     private String locale;
     private LocalDateTime lastVisit;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<UserBet> userBetList;
 
     public User() {
     }
@@ -72,5 +79,13 @@ public class User {
 
     public void setLastVisit(LocalDateTime lastVisit) {
         this.lastVisit = lastVisit;
+    }
+
+    public List<UserBet> getUserBetList() {
+        return userBetList;
+    }
+
+    public void setUserBetList(List<UserBet> userBetList) {
+        this.userBetList = userBetList;
     }
 }
