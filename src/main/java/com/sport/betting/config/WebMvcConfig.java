@@ -25,10 +25,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
                     .addResourceLocations("classpath:/static/");
     }
 
-    /*@Bean
+    @Bean
     public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> webServerCustomizer() {
         return container -> {
             container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/"));
         };
-    }*/
+    }
 }

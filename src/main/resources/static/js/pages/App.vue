@@ -1,7 +1,7 @@
 <template>
     <div>
         <navbar />
-        <bet-table/>
+        <router-view></router-view>
     </div>
 </template>
 
