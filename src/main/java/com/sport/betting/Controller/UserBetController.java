@@ -6,11 +6,13 @@ import com.sport.betting.Repo.UserDetailsRepo;
 import com.sport.betting.domain.Bet;
 import com.sport.betting.domain.User;
 import com.sport.betting.domain.UserBet;
+import com.sport.betting.domain.dto.BetDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -27,6 +29,11 @@ public class UserBetController {
         this.userBetRepo = userBetRepo;
         this.userDetailsRepo = userDetailsRepo;
         this.betRepo = betRepo;
+    }
+
+    @GetMapping
+    public List<BetDto> userBetList(@AuthenticationPrincipal User user) {
+        return userBetRepo.findUserBets(user);
     }
 
 

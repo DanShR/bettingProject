@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+
 @RestController
 @RequestMapping("/bet")
 public class BetController {
 
     private BetService betService;
-    @Autowired
-    private BetRepo betRepo;
 
     @Autowired
     public BetController(BetService betService) {
@@ -28,11 +28,14 @@ public class BetController {
 
 
     @GetMapping
-    public Page<BetDto> bet(@RequestParam(value = "perPage", defaultValue = "10") int perPage,
-                            @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
-                            @AuthenticationPrincipal User user) {
+    public HashMap<String, Object> bet(@RequestParam(value = "perPage", defaultValue = "10") int perPage,
+                               @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+                               @AuthenticationPrincipal User user) {
         PageRequest pageR = new PageRequest(currentPage - 1,perPage);
         Page<BetDto> betPage = betService.betList(pageR, user);
-        return betPage;
+        HashMap<String, Object> response = new HashMap<>();
+        response.put("content", betPage.getContent());
+        response.put("totalPages", betPage.getTotalPages());
+        return response;
     }
 }
