@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <td>{{userBet.game.date}}</td>
+        <td>{{gameDate}}</td>
         <td>{{userBet.game.status}}</td>
         <td>{{userBet.game.league.name}}</td>
         <td>{{userBet.game.teamHome.name}}</td>
@@ -27,6 +27,9 @@
                     profitSumm = '+' + this.userBet.userBet.summ * this.userBet.userBet.odd - this.userBet.userBet.summ
                 }
                 return profitSumm
+            },
+            gameDate : function () {
+                return  new Date(this.userBet.game.date).toString('dd.MM.yyyy hh:mm')
             }
         }
     }

@@ -1,23 +1,6 @@
 <template>
     <div>
-        <ul class="collapsible" >
-            <li >
-                <div class="collapsible-header"><i class="material-icons">filter_list</i>Filter</div>
-                <div  class="collapsible-body">
-                    <span class="row">
-                   <date-range-picker
-                           ref="picker"
-                           :locale-data="{ firstDay: 1, format: 'DD-MM-YYYY' }"
-                           v-model="dateRange"
-                           :opens="'right'"
-                   >
-
-                    </date-range-picker>
-
-                    </span>
-                </div>
-            </li>
-        </ul>
+        <user-bet-filter :filter="filter" @applyFilter="fetchUserBets"></user-bet-filter>
         <table class="striped">
             <thead>
             <tr>
@@ -43,23 +26,22 @@
 
 <script>
     import UserBetRow from 'components/bets/UserBetRow.vue'
-    import DateRangePicker from 'vue2-daterange-picker'
-    //you need to import the CSS manually (in case you want to override it)
-    import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
-
+    import UserBetFilter from 'components/bets/UserBetFilter.vue'
     export default {
         components: {
-            DateRangePicker ,
-            UserBetRow
+            UserBetRow,
+            UserBetFilter
         },
         data() {
             return {
                 betList : [],
                 startDate: null,
                 endDate: null,
-                dateRange: {
-                    startDate:'2019-05-01',
-                    endDate: '2019-05-15',
+                filter : {
+                    dateRange: {
+                        startDate: null,
+                        endDate: null,
+                    }
                 }
             }
         },
@@ -68,7 +50,16 @@
         },
         methods: {
             fetchUserBets: function (page) {
-                this.$http.get('http://localhost:9000/userBet')
+                let requestParams = {}
+                if (this.filter.dateRange.startDate != null) {
+                    requestParams.startDate = this.filter.dateRange.startDate.setHours(0, 0, 0, 0)
+                }
+                if (this.filter.dateRange.endDate != null) {
+                    requestParams.endDate = this.filter.dateRange.endDate.setHours(23, 59, 59)
+                }
+                console.log(typeof this.filter.dateRange.endDate)
+
+                this.$http.get('http://localhost:9000/userBet', {params : requestParams})
                     .then(function (response) {
                         this.betList = response.data
                     })

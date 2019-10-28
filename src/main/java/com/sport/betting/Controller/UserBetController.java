@@ -8,13 +8,13 @@ import com.sport.betting.domain.User;
 import com.sport.betting.domain.UserBet;
 import com.sport.betting.domain.dto.BetDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/userBet")
@@ -32,8 +32,19 @@ public class UserBetController {
     }
 
     @GetMapping
-    public List<BetDto> userBetList(@AuthenticationPrincipal User user) {
-        return userBetRepo.findUserBets(user);
+    public List<BetDto> userBetList(@RequestParam(required = false, name = "startDate")  Long startDate,
+                                    @RequestParam(required = false, name = "endDate") Long endDate,
+                                    @AuthenticationPrincipal User user) {
+        Date startDateFilter = null;
+        Date endDateFilter = null;
+        if (startDate != null) {
+            startDateFilter = new Date(startDate);
+        }
+        if (endDate != null) {
+            endDateFilter = new Date(endDate);
+        }
+
+        return userBetRepo.findByFilterText(startDateFilter, endDateFilter);
     }
 
 

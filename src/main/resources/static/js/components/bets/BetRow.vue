@@ -18,7 +18,7 @@
 
                     <span class="row">
                          <span class="left">ratio - {{bet.ratio}}</span>
-                        <span class="right">{{bet.game.date}}, {{stat}} </span>
+                        <span class="right">{{gameDate}}, {{stat}} </span>
                     </span>
                     <span class="row">
                         <span class="left">bookmaker - <span class="">{{bet.bookmaker.name}}</span></span>
@@ -109,6 +109,9 @@
                     case 1:
                         return  'win'
                 }
+            },
+            gameDate : function () {
+                return  new Date(this.bet.game.date).toString('dd.MM.yyyy hh:mm')
             },
             ...mapState([
                          'profile'

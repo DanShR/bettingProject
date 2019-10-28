@@ -18,6 +18,10 @@ public class BetDto implements Serializable {
         private int result;
         private UserBet userBet;
 
+    public BetDto(int id) {
+        this.id = id;
+    }
+
     public BetDto(int id, Game game, Bookmaker bookmaker, int event, float odd, Date addTime, float ratio, int result, UserBet userBet) {
         this.id = id;
         this.game = game;

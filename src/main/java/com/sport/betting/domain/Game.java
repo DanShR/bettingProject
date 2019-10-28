@@ -36,12 +36,12 @@ public class Game {
     @Column(name = "scores_away")
     private int scoresAway;
 
-    @JsonFormat(pattern="dd-MM-yyy HH:mm")
+    //JsonFormat(pattern="dd-MM-yyy HH:mm")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<EventOdd> eventOdds;
 
 
@@ -102,8 +102,8 @@ public class Game {
         this.scoresAway = scoresAway;
     }
 
-    public Date getDate() {
-        return date;
+    public long getDate() {
+        return date.getTime();
     }
 
     public void setDate(int date) {

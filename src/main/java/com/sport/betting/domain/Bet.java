@@ -43,7 +43,7 @@ public class Bet {
     @JoinColumn(name = "event_odd_id")
     private EventOdd eventOdd;
 
-    @OneToMany(mappedBy = "bet", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "bet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<UserBet> userBetList;
 
     @Temporal(TemporalType.TIMESTAMP)
