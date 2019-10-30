@@ -4,6 +4,7 @@ import com.sport.betting.Repo.BetRepo;
 import com.sport.betting.Repo.UserBetRepo;
 import com.sport.betting.Repo.UserDetailsRepo;
 import com.sport.betting.domain.Bet;
+import com.sport.betting.domain.Bookmaker;
 import com.sport.betting.domain.User;
 import com.sport.betting.domain.UserBet;
 import com.sport.betting.domain.dto.BetDto;
@@ -34,6 +35,7 @@ public class UserBetController {
     @GetMapping
     public List<BetDto> userBetList(@RequestParam(required = false, name = "startDate")  Long startDate,
                                     @RequestParam(required = false, name = "endDate") Long endDate,
+                                    @RequestParam(required = false, name = "bookmaker") List<Bookmaker> bookmakerList,
                                     @AuthenticationPrincipal User user) {
         Date startDateFilter = null;
         Date endDateFilter = null;
@@ -44,7 +46,7 @@ public class UserBetController {
             endDateFilter = new Date(endDate);
         }
 
-        return userBetRepo.findByFilterText(startDateFilter, endDateFilter);
+        return userBetRepo.findByFilterText(startDateFilter, endDateFilter, bookmakerList);
     }
 
 

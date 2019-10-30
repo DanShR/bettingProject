@@ -41,7 +41,8 @@
                     dateRange: {
                         startDate: null,
                         endDate: null,
-                    }
+                    },
+                    selectedBookmakers: []
                 }
             }
         },
@@ -57,9 +58,12 @@
                 if (this.filter.dateRange.endDate != null) {
                     requestParams.endDate = this.filter.dateRange.endDate.setHours(23, 59, 59)
                 }
-                console.log(typeof this.filter.dateRange.endDate)
 
-                this.$http.get('http://localhost:9000/userBet', {params : requestParams})
+                if (this.filter.selectedBookmakers.length > 0) {
+                    requestParams.bookmaker = this.filter.selectedBookmakers
+                }
+
+                this.$http.get('http://localhost:9000/userBet{?bookmaker*}', {params : requestParams})
                     .then(function (response) {
                         this.betList = response.data
                     })

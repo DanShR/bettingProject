@@ -1,5 +1,6 @@
 package com.sport.betting.Repo;
 
+import com.sport.betting.domain.Bookmaker;
 import com.sport.betting.domain.UserBet;
 import com.sport.betting.domain.dto.BetDto;
 import org.springframework.stereotype.Repository;
@@ -18,10 +19,11 @@ public class UserBetRepoImpl implements UserBetRepoCustom {
     private EntityManager entityManager;
 
     @Override
-    public List<BetDto> findByFilterText(Date startDate, Date endDate) {
+    public List<BetDto> findByFilterText(Date startDate, Date endDate, List<Bookmaker> bookmakerList) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<UserBet> query = criteriaBuilder.createQuery(UserBet.class);
         Root<UserBet> UserBetRoot = query.from(UserBet.class);
+        query.select(UserBetRoot);
 
         List<Predicate> predicates = new ArrayList<>();
 
@@ -31,6 +33,11 @@ public class UserBetRepoImpl implements UserBetRepoCustom {
         if (endDate != null) {
             predicates.add(criteriaBuilder.lessThanOrEqualTo(UserBetRoot.get("bet").get("game").get("date"), endDate));
         }
+        if (bookmakerList != null) {
+             Expression<String> expression = UserBetRoot.get("bet").get("bookmaker");
+             predicates.add(expression.in(bookmakerList));
+        }
+
         List<Order> orderList = new ArrayList();
         orderList.add(criteriaBuilder.desc(UserBetRoot.get("bet").get("game").get("date")));
         query.orderBy(orderList);
