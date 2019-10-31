@@ -1,15 +1,12 @@
 package com.sport.betting.Controller;
 
-import com.sport.betting.Repo.BetRepo;
-import com.sport.betting.Repo.UserBetRepo;
-import com.sport.betting.Repo.UserDetailsRepo;
+import com.sport.betting.Service.UserBetService;
 import com.sport.betting.domain.Bet;
 import com.sport.betting.domain.Bookmaker;
 import com.sport.betting.domain.User;
 import com.sport.betting.domain.UserBet;
 import com.sport.betting.domain.dto.BetDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,15 +18,11 @@ import java.util.List;
 @RequestMapping("/userBet")
 public class UserBetController {
 
-    private final UserBetRepo userBetRepo;
-    private final UserDetailsRepo userDetailsRepo;
-    private final BetRepo betRepo;
+    private final UserBetService userBetService;
 
     @Autowired
-    public UserBetController(UserBetRepo userBetRepo, UserDetailsRepo userDetailsRepo, BetRepo betRepo) {
-        this.userBetRepo = userBetRepo;
-        this.userDetailsRepo = userDetailsRepo;
-        this.betRepo = betRepo;
+    public UserBetController(UserBetService userBetService) {
+        this.userBetService = userBetService;
     }
 
     @GetMapping
@@ -46,7 +39,7 @@ public class UserBetController {
             endDateFilter = new Date(endDate);
         }
 
-        return userBetRepo.findByFilterText(startDateFilter, endDateFilter, bookmakerList);
+        return userBetService.findByFilterText(startDateFilter, endDateFilter, bookmakerList);
     }
 
 
@@ -54,7 +47,7 @@ public class UserBetController {
     public UserBet add(@RequestParam Bet bet, @RequestBody UserBet userBet, @AuthenticationPrincipal User user) {
         userBet.setBet(bet);
         userBet.setUser(user);
-        userBetRepo.save(userBet);
+        userBetService.save(userBet);
         return userBet;
     }
 
@@ -62,7 +55,7 @@ public class UserBetController {
     public UserBet edit(@RequestParam UserBet userBet, @RequestBody HashMap<String, String> body) {
         userBet.setSumm(Integer.parseInt(body.get("summ")));
         userBet.setOdd(Float.parseFloat(body.get("odd")));
-        userBetRepo.save(userBet);
+        userBetService.save(userBet);
         return userBet;
     }
 
@@ -72,6 +65,6 @@ public class UserBetController {
 
         userBet.getUser().getUserBetList().remove(userBet);
         userBet.getBet().getUserBetList().remove(userBet);
-        userBetRepo.delete(userBet);
+        userBetService.delete(userBet);
     }
 }

@@ -17,7 +17,6 @@ public class Bookmaker {
     public Bookmaker() {
     }
 
-
     public int getId() {
         return id;
     }

@@ -19,7 +19,7 @@ public class User {
     private LocalDateTime lastVisit;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<UserBet> userBetList;
 
     public User() {

@@ -14,7 +14,7 @@ public class EventOdd {
     @JoinColumn(name = "game_id")
     private Game game;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bookmaker_id")
     private Bookmaker bookmaker;
 

@@ -1,6 +1,6 @@
 package com.sport.betting.Controller;
 
-import com.sport.betting.Repo.BookmakerRepo;
+import com.sport.betting.Service.BookmakerService;
 import com.sport.betting.domain.Bookmaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,16 +13,16 @@ import java.util.List;
 @RequestMapping("/bookmaker")
 public class BookmakerController {
 
-    private final BookmakerRepo bookmakerRepo;
+    private final BookmakerService bookmakerService;
 
     @Autowired
-    public BookmakerController(BookmakerRepo bookmakerRepo) {
-        this.bookmakerRepo = bookmakerRepo;
+    public BookmakerController(BookmakerService bookmakerService) {
+        this.bookmakerService = bookmakerService;
     }
 
     @GetMapping
     public List<Bookmaker> bookmakerList() {
-        return bookmakerRepo.findAll();
+        return bookmakerService.findAll();
     }
 
 }

@@ -1,6 +1,5 @@
 package com.sport.betting.Controller;
 
-import com.sport.betting.Repo.BetRepo;
 import com.sport.betting.Service.BetService;
 import com.sport.betting.domain.User;
 import com.sport.betting.domain.dto.BetDto;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
