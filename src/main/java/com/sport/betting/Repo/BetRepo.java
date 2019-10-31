@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Date;
 import java.util.List;
 
 public interface BetRepo extends JpaRepository<Bet, Integer> {
@@ -19,5 +20,14 @@ public interface BetRepo extends JpaRepository<Bet, Integer> {
             "group by g.id, b.bookmaker,ubl.user,ubl.bet order by g.date desc")
     Page<BetDto> betList(Pageable page, User user);
 
-    List<Bet> findTop10ByGameStatus(int status);
+    @Query("from Bet b left join b.game g " +
+            "where b.event=1 and b.odd between 2 and 2.5 and b.ratio >= 1.001 and b.result <> 0" +
+            "group by g.id order by g.date desc")
+    List<Bet> betListWithoutDuplicateGames();
+
+    @Query("select new com.sport.betting.domain.dto.BetDto(b.id, b.game, b.bookmaker, b.event, b.odd, max(b.addTime), b.ratio, b.result, ubl) " +
+            "from Bet b left join b.game g left join b.userBetList ubl " +
+            "where b.event=1 and b.odd between 2 and 2.5 and b.ratio >= 1.001 and b.result <> 0 and g.date between :startDate and :endDate " +
+            "group by g.id order by g.date desc")
+    List<BetDto> betListByPerid(Date startDate, Date endDate);
 }

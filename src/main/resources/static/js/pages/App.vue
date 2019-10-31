@@ -17,9 +17,6 @@
             document.addEventListener('DOMContentLoaded', function() {
                 let instances1 = M.Dropdown.init(document.querySelectorAll('.dropdown-trigger'));
 
-                var elems = document.querySelectorAll('.collapsible');
-                var instances3 = M.Collapsible.init(elems);
-
                 var elems3 = document.querySelectorAll('select');
                 var instances3 = M.FormSelect.init(elems3);
             });

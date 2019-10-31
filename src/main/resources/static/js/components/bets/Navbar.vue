@@ -9,6 +9,7 @@
             <a href="/" class="brand-logo"><i class="large material-icons">directions_run</i>Betting</a>
 
             <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li v-if="profile"><a href="/statistics">Statistics</a></li>
                 <li v-if="profile"><a href="/userBets">My bets</a></li>
                 <li v-if="!profile"><a href="/login">Login</a></li>
                 <li v-if="profile"><a class="dropdown-trigger" href="#!" data-target="dropdown1" >{{profile.name}}<i class="material-icons right">arrow_drop_down</i></a></li>

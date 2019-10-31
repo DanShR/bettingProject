@@ -44,7 +44,7 @@
             fetchBets: function (page) {
                 this.loading = true;
 
-                var options= {
+                let options= {
                     params : {
                         perPage: this.perPage,
                         currentPage: page

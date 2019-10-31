@@ -4,6 +4,7 @@ import com.sport.betting.Repo.BetRepo;
 import com.sport.betting.Service.BetService;
 import com.sport.betting.domain.User;
 import com.sport.betting.domain.dto.BetDto;
+import com.sport.betting.domain.dto.BetStatisticsByPeriod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/bet")
@@ -37,5 +41,17 @@ public class BetController {
         response.put("content", betPage.getContent());
         response.put("totalPages", betPage.getTotalPages());
         return response;
+    }
+
+    @GetMapping("/statistics/week")
+    public List<BetStatisticsByPeriod> statistics(@RequestParam(name = "defaultSumm") float defaultSumm) {
+        List<BetStatisticsByPeriod> statistics = betService.betStatisticsByWeek(defaultSumm);
+        return statistics;
+    }
+
+    @GetMapping("statistics/week/items")
+    public List<BetDto> statisticsItems(@RequestParam(required = false, name = "startDate")  Long startDate,
+                                        @RequestParam(required = false, name = "endDate") Long endDate) {
+        return betService.betListByPerid(new Date(startDate), new Date(endDate));
     }
 }
