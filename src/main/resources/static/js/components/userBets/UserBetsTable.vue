@@ -25,9 +25,11 @@
 </template>
 
 <script>
-    import UserBetRow from 'components/bets/UserBetRow.vue'
-    import UserBetFilter from 'components/bets/UserBetFilter.vue'
+    import UserBetRow from 'components/userBets/UserBetRow.vue'
+    import UserBetFilter from 'components/userBets/UserBetFilter.vue'
+    import DateMixin from "components/mixin/DateMixin";
     export default {
+        mixins :[DateMixin],
         components: {
             UserBetRow,
             UserBetFilter
@@ -53,10 +55,10 @@
             fetchUserBets: function (page) {
                 let requestParams = {}
                 if (this.filter.dateRange.startDate != null) {
-                    requestParams.startDate = this.filter.dateRange.startDate.setHours(0, 0, 0, 0)
+                    requestParams.startDate = this.startOfDay(this.filter.dateRange.startDate)
                 }
                 if (this.filter.dateRange.endDate != null) {
-                    requestParams.endDate = this.filter.dateRange.endDate.setHours(23, 59, 59)
+                    requestParams.endDate = this.endOfDay(this.filter.dateRange.endDate)
                 }
 
                 if (this.filter.selectedBookmakers.length > 0) {

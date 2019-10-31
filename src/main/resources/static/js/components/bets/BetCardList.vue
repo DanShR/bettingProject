@@ -3,7 +3,7 @@
         <div v-if="profile">
              <preloader :loading="loading"/>
             <div v-if="!loading">
-                <bet-row  v-for="bet in betList" :bet="bet" :key="bet.id"></bet-row>
+                <bet-card  v-for="bet in betList" :bet="bet" :key="bet.id"></bet-card>
                 <pagination
                         :current="currentPage"
                         :totalPages="totalPages"
@@ -14,14 +14,14 @@
 </template>
 
 <script>
-    import BetRow from 'components/bets/BetRow.vue'
+    import BetCard from 'components/bets/BetCard.vue'
     import Pagination from 'components/bets/Pagination.vue'
-    import Preloader from 'components/bets/Preloader.vue'
+    import Preloader from 'components/common/Preloader.vue'
     import { mapState } from 'vuex';
 
     export default {
         components: {
-            BetRow,
+            BetCard,
             Pagination,
             Preloader
         },

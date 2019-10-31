@@ -1,5 +1,5 @@
 <template>
-    <ul class="collapsible" >
+    <ul id="filter" class="collapsible" >
         <li>
             <div class="collapsible-header"><i class="material-icons">filter_list</i>Filter <span style="font-size: 12px"> ({{filtetText}})</span></div>
             <div  class="collapsible-body">
@@ -70,7 +70,7 @@
                 this.setFilterText()
             },
             setFilterText: function () {
-                console.log(document.querySelector("#r"))
+                console.log(document.querySelector('#r'))
                 let text = null
                 let textStartDate = null
                 let textEndDate = null
@@ -83,24 +83,24 @@
 
                 if (textStartDate != null) {
                     if (textStartDate == textEndDate) {
-                        text = "game date - " + textStartDate
+                        text = 'game date - ' + textStartDate
                     } else {
-                        text = "game date between " + textStartDate + " - " + textEndDate
+                        text = 'game date between ' + textStartDate + '' - '' + textEndDate
                     }
                 }
 
                 if (this.filter.selectedBookmakers.length > 0) {
                     if (text != null) {
-                        text = text + "; bookmaker in : "
+                        text = text + '; bookmaker in : '
                     } else {
-                        text = "bookmaker in : "
+                        text = 'bookmaker in : '
                     }
                     for(let i = 0; i < this.filter.selectedBookmakers.length; i++) {
                         let bookmaker = this.bookmakerList.find(x => x.id === this.filter.selectedBookmakers[i])
                         if (bookmaker != undefined) {
                             text = text + bookmaker.name
                             if (i != this.filter.selectedBookmakers.length - 1) {
-                                text = text + ", "
+                                text = text + ', '
                             }
                         }
                     }
@@ -111,11 +111,15 @@
                 this.filtetText = text
             },
             fetchBookmakerList: function () {
-                let xmlHttp = new XMLHttpRequest();
-                xmlHttp.open( "GET", 'http://localhost:9000/bookmaker', false ); // false for synchronous request
-                xmlHttp.send( null );
-                this.bookmakerList =  JSON.parse(xmlHttp.response);
+                let xmlHttp = new XMLHttpRequest()
+                xmlHttp.open( 'GET', 'http://localhost:9000/bookmaker', false ) // false for synchronous request
+                xmlHttp.send( null )
+                this.bookmakerList =  JSON.parse(xmlHttp.response)
             }
+        },
+        mounted() {
+            M.Collapsible.init( document.querySelector('#filter'))
+            M.FormSelect.init(document.querySelectorAll('#sb'))
         }
     }
 </script>

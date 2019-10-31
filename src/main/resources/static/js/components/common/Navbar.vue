@@ -1,6 +1,6 @@
 <template>
     <nav class="grey darken-3">
-        <ul id="dropdown1" class="dropdown-content grey darken-2">
+        <ul id="dropdown" class="dropdown-content grey darken-2">
             <li><a href="/profile" class="white-text">Profile</a></li>
             <li class="divider"></li>
             <li><a href="/logout" class="white-text"><i class="material-icons">exit_to_app</i></a></li>
@@ -12,7 +12,7 @@
                 <li v-if="profile"><a href="/statistics">Statistics</a></li>
                 <li v-if="profile"><a href="/userBets">My bets</a></li>
                 <li v-if="!profile"><a href="/login">Login</a></li>
-                <li v-if="profile"><a class="dropdown-trigger" href="#!" data-target="dropdown1" >{{profile.name}}<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li v-if="profile"><a id="dropdownTrg" class="dropdown-trigger" href="#!" data-target="dropdown" >{{profile.name}}<i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
         </div>
     </nav>
@@ -22,7 +22,10 @@
     import { mapState } from 'vuex';
     export default {
         computed:
-            mapState(['profile'])
+            mapState(['profile']),
+        mounted() {
+            M.Dropdown.init(document.querySelector('#dropdownTrg'))
+        }
     }
 </script>
 

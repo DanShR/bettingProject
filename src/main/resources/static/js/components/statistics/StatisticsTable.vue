@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import StatisticsItem from 'components/bets/StatisticsItem.vue'
+    import StatisticsItem from 'components/statistics/StatisticsItem.vue'
     export default {
         components: {
             StatisticsItem

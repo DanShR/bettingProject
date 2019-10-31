@@ -8,31 +8,28 @@
                         <span class="right">{{bet.game.league.name}}</span>
                     </span>
                     <span class="row">
-                        <span class="left">{{event}} - {{bet.odd}}</span>
+                        <span class="left">{{eventBetText(bet.event)}} - {{bet.odd}}</span>
                         <span class="right valign-wrapper">
                             <img :src="'/img/' + bet.game.teamHome.image_id  + '.png'"/>&nbsp;
-                            {{bet.game.teamHome.name}} - {{bet.game.teamAway.name}}&nbsp;
+                            {{bet.game.teamHome.name}} {{gameScoresText(bet.game)}} {{bet.game.teamAway.name}}&nbsp;
                             <img :src="'/img/' + bet.game.teamAway.image_id  + '.png'"/>
                         </span>
                     </span>
-
                     <span class="row">
                          <span class="left">ratio - {{bet.ratio}}</span>
-                        <span class="right">{{gameDate}}, {{stat}} </span>
+                        <span class="right">{{timestampToDateTimeString(bet.game.date)}}, {{gameStatusText(bet.game.status)}} </span>
                     </span>
                     <span class="row">
                         <span class="left">bookmaker - <span class="">{{bet.bookmaker.name}}</span></span>
-                        <span class="right">result - {{result}}</span>
+                        <span class="right">result - {{betResultText(bet.result)}}</span>
                     </span>
                 </div>
-
                 <div class="card-action">
                     <span v-if="hasUserBet&&mode==null">
                         <a class="btn-floating btn-small waves-effect waves-light green"  @click="editUserBetClick"><i class="material-icons">edit</i></a>
                         <a class="btn-floating btn-small waves-effect waves-light red lighten-1"  @click="deleteUserBet"><i class="material-icons">delete</i></a>
                         <span class="white-text"> odd: {{bet.userBet.odd}} summ: {{bet.userBet.summ}}</span>
                     </span>
-
                     <a v-if="!hasUserBet&&mode==null" a class="btn-floating btn-small waves-effect waves-light green" @click="addUsetBetClick"><i class="material-icons">add</i></a>
                     <span v-if="mode!=null">
                         <a class="btn-floating btn-small waves-effect waves-light green"  @click="saveUserBet"><i class="material-icons">done</i></a>
@@ -50,8 +47,6 @@
                             </div>
                         </div>
                     </span>
-                    <!--<a v-if="bet.userBet==null" class="btn-floating btn-small waves-effect waves-light green" @click="addUserBet"><i class="material-icons">add</i></a>
-                    <a v-if="bet.userBet!=null" class="btn-floating btn-small waves-effect waves-light red" @click="deleteUserBet"><i class="material-icons">remove</i></a>-->
                 </div>
             </div>
         </div>
@@ -61,8 +56,13 @@
 
 <script>
     import { mapState } from 'vuex';
+    import GameMixin from 'components/mixin/GameMixin.js'
+    import BetMixin from "components/mixin/BetMixin";
+    import DateMixin from "components/mixin/DateMixin";
+
     export default {
         props: ['bet'],
+        mixins: [GameMixin, BetMixin, DateMixin],
         data() {
             return {
                 mode: null,
@@ -72,52 +72,13 @@
             }
         },
         computed :{
-            hasUserBet: function() {
+            hasUserBet: function(x) {
                 return this.bet.userBet != null
-            },
-            stat: function () {
-                switch (this.bet.game.status) {
-                    case 3:
-                        return 'завершен'
-                    case 0:
-                        return 'не начат'
-                    default:
-                        return 'неизвестно'
-                }
-            },
-            scores: function () {
-                return '(' + this.bet.game.scoresHome + ' : ' + this.bet.game.scoresAway +')'
-            },
-            event : function () {
-                switch (this.bet.event) {
-                    case 1:
-                        return 'П1'
-                    case 2:
-                        return 'Х'
-                    case 3:
-                        return 'П2'
-                    default:
-                        return  '-'
-                }
-            },
-            result: function () {
-                switch (this.bet.result) {
-                    case -1:
-                        return 'lose'
-                    case 0:
-                        return  'не рассчитано'
-                    case 1:
-                        return  'win'
-                }
-            },
-            gameDate : function () {
-                return  new Date(this.bet.game.date).toString('dd.MM.yyyy hh:mm')
             },
             ...mapState([
                          'profile'
                      ])
         },
-
         methods: {
             cancelChanges: function() {
                 this.mode = null

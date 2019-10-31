@@ -1,7 +1,7 @@
 <template>
     <li :id="statPeriod.number" >
         <div class="collapsible-header"><i class="material-icons">assessment</i>
-            {{startDate}} - {{endDate}}
+            {{timestampToDateString(statPeriod.startDate)}} - {{timestampToDateString(statPeriod.endDate)}}
             profit {{statPeriod.profit}}</div>
         <div class="collapsible-body">
             <ul class="collection">
@@ -17,7 +17,10 @@
 </template>
 
 <script>
+    import DateMixin from "components/mixin/DateMixin";
+
     export default {
+        mixins: [DateMixin],
         props: ['statPeriod'],
         data() {
             return {
@@ -25,15 +28,9 @@
             }
         },
         computed: {
-            startDate : function () {
-                return new Date(this.statPeriod.startDate).toString('dd.MM.yyyy');
-            },
-            endDate : function () {
-                return new Date(this.statPeriod.endDate).toString('dd.MM.yyyy');
-            },
             betList: function () {
                 return this.items.map(x => {
-                    x.game.date = new Date(x.game.date).toString('dd.MM.yyyy')
+                    x.game.date = this.timestampToDateTimeString(x.game.date)
                     return x
                 })
             }
