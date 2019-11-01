@@ -41,13 +41,25 @@ public class BetController {
         return response;
     }
 
+    @GetMapping("/statistics/day")
+    public List<BetStatisticsByPeriod> statisticsByDays(@RequestParam(name = "defaultSumm") float defaultSumm) {
+        List<BetStatisticsByPeriod> statistics = betService.betStatisticsByDay(defaultSumm);
+        return statistics;
+    }
+
     @GetMapping("/statistics/week")
-    public List<BetStatisticsByPeriod> statistics(@RequestParam(name = "defaultSumm") float defaultSumm) {
+    public List<BetStatisticsByPeriod> statisticsByWeeks(@RequestParam(name = "defaultSumm") float defaultSumm) {
         List<BetStatisticsByPeriod> statistics = betService.betStatisticsByWeek(defaultSumm);
         return statistics;
     }
 
-    @GetMapping("statistics/week/items")
+    @GetMapping("/statistics/month")
+    public List<BetStatisticsByPeriod> statisticsByMounts(@RequestParam(name = "defaultSumm") float defaultSumm) {
+        List<BetStatisticsByPeriod> statistics = betService.betStatisticsByMonth(defaultSumm);
+        return statistics;
+    }
+
+    @GetMapping("statistics/items")
     public List<BetDto> statisticsItems(@RequestParam(required = false, name = "startDate")  Long startDate,
                                         @RequestParam(required = false, name = "endDate") Long endDate) {
         return betService.betListByPerid(new Date(startDate), new Date(endDate));
