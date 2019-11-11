@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import BetCardList from 'components/bets/BetCardList.vue'
-import UserProfile from 'components/common/UserProfile.vue'
-import UserBetsTable from 'components/userBets/UserBetsTable.vue'
-import StatisticsTable from 'components/statistics/StatisticsTable.vue'
+import BetCardList from  '../components/bets/BetCardList.vue'
+import UserProfile from '../components/common/UserProfile.vue'
+import UserBetsTable from '../components/userBets/UserBetsTable.vue'
+import StatisticsTable from '../components/statistics/StatisticsTable.vue'
 
 Vue.use(VueRouter)
 

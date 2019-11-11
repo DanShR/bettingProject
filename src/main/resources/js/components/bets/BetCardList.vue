@@ -14,7 +14,7 @@
 </template>
 
 <script>
-    import BetCard from 'components/bets/BetCard.vue'
+    import BetCard from  'components/bets/BetCard.vue'//   '../components/bets/BetCard.vue'
     import Pagination from 'components/bets/Pagination.vue'
     import Preloader from 'components/common/Preloader.vue'
     import { mapState } from 'vuex';
