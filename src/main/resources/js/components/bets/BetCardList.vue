@@ -50,7 +50,7 @@
                         currentPage: page
                     }
                 }
-                this.$http.get('http://localhost:9000/bet', options)
+                this.$http.get('/bet', options)
                     .then(function (response) {
                         this.betList = response.data.content
                         this.currentPage = page
