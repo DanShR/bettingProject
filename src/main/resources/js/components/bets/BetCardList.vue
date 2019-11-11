@@ -44,6 +44,8 @@
             fetchBets: function (page) {
                 console.log(isDevMode)
                 console.log(typeof isDevMode)
+                console.log(this.$http.options.root)
+
                 this.loading = true;
 
                 let options= {
@@ -52,7 +54,7 @@
                         currentPage: page
                     }
                 }
-                this.$http.get('https://lbsport.herokuapp.com/bet', options)
+                this.$http.get('bet/', options)
                     .then(function (response) {
                         this.betList = response.data.content
                         this.currentPage = page
