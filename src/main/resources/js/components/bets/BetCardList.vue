@@ -52,7 +52,7 @@
                         currentPage: page
                     }
                 }
-                this.$http.get('/bet', options)
+                this.$http.get('https://lbsport.herokuapp.com/bet', options)
                     .then(function (response) {
                         this.betList = response.data.content
                         this.currentPage = page
