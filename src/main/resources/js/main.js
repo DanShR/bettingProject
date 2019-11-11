@@ -8,8 +8,8 @@ import router from '../js/router/router'
 import  'datejs'
 Vue.use(VueResource);
 
-if (!isDevMode)
-    Vue.http.options.root = "https://lbsport.herokuapp.com"
+
+    Vue.http.options.root = 'https://lbsport.herokuapp.com'
 
 new Vue({
     el: '#app',
