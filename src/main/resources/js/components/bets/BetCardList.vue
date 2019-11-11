@@ -42,6 +42,8 @@
         },
         methods: {
             fetchBets: function (page) {
+                console.log(isDevMode)
+                console.log(typeof isDevMode)
                 this.loading = true;
 
                 let options= {
