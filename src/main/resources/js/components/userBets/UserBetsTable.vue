@@ -65,7 +65,7 @@
                     requestParams.bookmaker = this.filter.selectedBookmakers
                 }
 
-                this.$http.get('http://localhost:9000/userBet{?bookmaker*}', {params : requestParams})
+                this.$http.get('userBet{?bookmaker*}', {params : requestParams})
                     .then(function (response) {
                         this.betList = response.data
                     })

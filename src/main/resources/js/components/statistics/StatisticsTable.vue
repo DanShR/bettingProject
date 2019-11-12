@@ -88,7 +88,7 @@
                 requestParams.startDate = this.startOfDay(new Date(itemPeriod.startDate))
                 requestParams.endDate = this.endOfDay(new Date(itemPeriod.endDate))
 
-                this.$http.get('http://localhost:9000/bet/statistics/items', {params : requestParams})
+                this.$http.get('bet/statistics/items', {params : requestParams})
                     .then(function (response) {
                         itemComponent.$data.items = response.data
                     })
@@ -96,7 +96,7 @@
             fetchStatistics: function () {
                 let requestParams = {}
                 requestParams.defaultSumm = this.defaultSumm
-                this.$http.get('http://localhost:9000/bet/statistics/' + this.periodMode, {params : requestParams})
+                this.$http.get('bet/statistics/' + this.periodMode, {params : requestParams})
                     .then(function (response) {
                         this.statistics = response.data
                     })

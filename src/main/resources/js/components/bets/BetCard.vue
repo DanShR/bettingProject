@@ -104,7 +104,7 @@
                     odd : this.userBetOdd,
                     summ : this.userBetSumm
                 }
-                  this.$http.post('http://localhost:9000/userBet?bet=' +  this.bet.id, params)
+                  this.$http.post('userBet?bet=' +  this.bet.id, params)
                     .then(function (response) {
                         this.bet.userBet  = response.data
                         this.changeShowUserBet()
@@ -115,14 +115,14 @@
                     odd : this.userBetOdd,
                     summ : this.userBetSumm
                 }
-                this.$http.put('http://localhost:9000/userBet?userBet=' +  this.bet.userBet.id, params)
+                this.$http.put('userBet?userBet=' +  this.bet.userBet.id, params)
                     .then(function (response) {
                         this.bet.userBet  = response.data
                         this.changeShowUserBet()
                     })
             },
             deleteUserBet: function () {
-                this.$http.delete('http://localhost:9000/userBet?userBet=' +  this.bet.userBet.id)
+                this.$http.delete('userBet?userBet=' +  this.bet.userBet.id)
                     .then(function (response) {
                         this.bet.userBet  = null
                     })
